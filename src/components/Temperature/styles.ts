@@ -3,13 +3,13 @@ import AnimatedNumbers from 'react-native-animated-numbers';
 
 export const Value = styled(AnimatedNumbers)`
     color: #000;
-    font-size: 95px;
+    font-size: 90px;
     font-weight: 600;
 `;
 
 export const TemperatureUnit = styled.Text`
     color: #000;
-    font-size: 95px;
+    font-size: 90px;
     font-weight: 600;
     margin: 0;
 `;

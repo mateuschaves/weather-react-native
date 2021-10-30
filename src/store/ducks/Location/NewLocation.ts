@@ -1,4 +1,5 @@
 import { Location } from '~/@types/dto/location';
+import { InitialNewLocationStateProps } from '~/@types/store/app.state';
 
 export const newLocationTypes = {
   NEW_LOCATION_REQUEST: 'location/NEW_LOCATION_REQUEST',
@@ -26,13 +27,7 @@ interface actionProps {
     payload?: Location | null;
 }
 
-interface stateProps {
-  location: [Location] | [];
-  loading: boolean;
-  error: any;
-}
-
-const initialState: stateProps = {
+const initialState: InitialNewLocationStateProps = {
   location: [],
   loading: false,
   error: null,

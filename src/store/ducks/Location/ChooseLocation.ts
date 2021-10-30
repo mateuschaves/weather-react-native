@@ -1,4 +1,5 @@
 import { Location } from '~/@types/dto/location';
+import { InitialChooseLocationStateProps } from '~/@types/store/app.state';
 
 export const chooseLocationTypes = {
   CHOOSE_LOCATION_REQUEST: 'location/CHOOSE_LOCATION_REQUEST',
@@ -26,13 +27,7 @@ interface actionProps {
     payload?: Location | null;
 }
 
-interface stateProps {
-  location: Location | {};
-  loading: boolean;
-  error: any;
-}
-
-const initialState: stateProps = {
+const initialState: InitialChooseLocationStateProps = {
   location: {},
   loading: false,
   error: null,

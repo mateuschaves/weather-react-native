@@ -21,7 +21,7 @@ export default function Header({ city, date, handleAddPlaceClick }: HeaderProps)
         <Date>{date}</Date>
       </CityInfoContainer>
 
-      <Ionicons name="add" size={40} onPress={handleAddPlaceClick} />
+      <Ionicons name="add" size={40} onPress={() => handleAddPlaceClick()} />
     </Container>
   );
 }

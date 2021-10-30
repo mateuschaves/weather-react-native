@@ -1,298 +1,107 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
-  SafeAreaView, View, useWindowDimensions, ScrollView,
+  SafeAreaView, View,
 } from 'react-native';
-import { TabBar, SceneMap } from 'react-native-tab-view';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Ionicons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
 
-import Header from '~/components/Header';
-import Temperature from '~/components/Temperature';
+import Swiper from 'react-native-swiper';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState } from '~/@types/store/app.state';
+import { InitialNewLocationStateProps } from '../../@types/store/app.state';
+
+import WeatherCondition from '~/components/WeatherCondition';
+import Footer from '~/components/Footer';
+
+import EmptyAnimation from '~/assets/animations/empty.json';
+import RomeVideo from '~/assets/videos/newyork.mp4';
 
 import * as NavigationService from '~/navigation/NavigationService';
 
-import RomeVideo from '~/assets/videos/newyork.mp4';
 import {
-  WeatherSummary,
   BackgroundVideo,
   Body,
-  Footer,
-  FooterTitle,
-  WeatherSummaryItem,
-  WeatherLabel,
-  WeatherValue,
-  WeatherContainer,
-  WeatherIconContainer,
-  WeatherTab,
-  WeatherContainerItem,
-  WeatherConditionTitle,
-  WeatherDayForecast,
-  WeatherIcon,
-  WeatherMaxAndMin,
+  EmptyBody,
+  Animation,
+  EmptyTitle,
 } from './styles';
-
-const WeatherSummaryComponent = () => (
-  <WeatherSummary>
-    <WeatherSummaryItem>
-      <WeatherIconContainer>
-        <Ionicons name="sunny-outline" size={25} />
-      </WeatherIconContainer>
-      <WeatherContainer>
-        <WeatherLabel>
-          Feel like
-        </WeatherLabel>
-        <WeatherValue>
-          34ºC
-        </WeatherValue>
-      </WeatherContainer>
-    </WeatherSummaryItem>
-
-    <WeatherSummaryItem>
-      <WeatherIconContainer>
-        <Ionicons name="golf-outline" size={25} />
-      </WeatherIconContainer>
-      <WeatherContainer>
-        <WeatherLabel>
-          Wind
-        </WeatherLabel>
-        <WeatherValue>
-          10 km/h
-        </WeatherValue>
-      </WeatherContainer>
-    </WeatherSummaryItem>
-
-    <WeatherSummaryItem>
-      <WeatherIconContainer>
-        <Ionicons name="thermometer-outline" size={25} />
-      </WeatherIconContainer>
-      <WeatherContainer>
-        <WeatherLabel>
-          Pressure
-        </WeatherLabel>
-        <WeatherValue>
-          1023 hPa
-        </WeatherValue>
-      </WeatherContainer>
-    </WeatherSummaryItem>
-
-    <WeatherSummaryItem>
-      <WeatherIconContainer>
-        <Ionicons name="water-outline" size={25} />
-      </WeatherIconContainer>
-      <WeatherContainer>
-        <WeatherLabel>
-          Humidity
-        </WeatherLabel>
-        <WeatherValue>
-          89 %
-        </WeatherValue>
-      </WeatherContainer>
-    </WeatherSummaryItem>
-  </WeatherSummary>
-);
-
-const WeatherForecastComponent = () => (
-  <ScrollView>
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Sat
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/03d@2x.png' }} />
-      <WeatherConditionTitle>
-        Light rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>25º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Sun
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/10d@2x.png' }} />
-      <WeatherConditionTitle>
-        Moderate rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>17º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Mon
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/01d@2x.png' }} />
-      <WeatherConditionTitle>
-        Clear sky
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>23º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>29º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Tue
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/10d@2x.png' }} />
-      <WeatherConditionTitle>
-        Light rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>25º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Wed
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/10d@2x.png' }} />
-      <WeatherConditionTitle>
-        Light rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>25º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Thu
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/10d@2x.png' }} />
-      <WeatherConditionTitle>
-        Light rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>25º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-
-    <WeatherContainerItem>
-      <WeatherDayForecast>
-        Fri
-      </WeatherDayForecast>
-      <WeatherIcon source={{ uri: 'http://openweathermap.org/img/wn/10d@2x.png' }} />
-      <WeatherConditionTitle>
-        Light rain
-      </WeatherConditionTitle>
-
-      <WeatherMaxAndMin>
-        <Ionicons name="arrow-down-outline" size={25} />
-        <WeatherConditionTitle>20º</WeatherConditionTitle>
-        <Ionicons name="arrow-up-outline" size={25} />
-        <WeatherConditionTitle>25º</WeatherConditionTitle>
-      </WeatherMaxAndMin>
-    </WeatherContainerItem>
-  </ScrollView>
-);
-
-const renderTabBar = (props: any) => (
-  <TabBar
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    {...props}
-    indicatorStyle={{ backgroundColor: 'black' }}
-    style={{ backgroundColor: '#fff' }}
-    activeColor="black"
-    inactiveColor="rgb(191, 191, 191)"
-  />
-);
-
-const renderScene = SceneMap({
-  now: WeatherSummaryComponent,
-  daily: WeatherForecastComponent,
-});
+import Header from '~/components/Header';
+import { chooseLocationActions } from '../../store/ducks/Location/ChooseLocation';
 
 export default function Home() {
-  const layout = useWindowDimensions();
-
-  const video = React.useRef<Video>(null);
+  const video = useRef<Video>(null);
 
   const [temperature, setTemperature] = useState(0);
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: 'now', title: 'Now' },
-    { key: 'daily', title: 'Daily' },
-  ]);
+  const [stepList, setStepList] = useState<React.ReactNode>([]);
+  const { location, loading } = useSelector<RootState, InitialNewLocationStateProps>((state) => state.locations);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     video.current?.playAsync();
     setTimeout(() => setTemperature(21), 300);
   }, []);
 
+  useEffect(() => {
+    setStepList(location.map(() => (
+      <WeatherCondition
+        city="New York"
+        date="Today, Oct 31 12:23"
+        temperature={temperature}
+        temperatureDescription="Sunny and warm"
+        temperatureUnit="º"
+        handleAddPlaceClick={handleAddPlaceClick}
+      />
+    )));
+  }, [location.length]);
+
   function handleAddPlaceClick() {
     NavigationService.navigate('Place', null);
   }
 
-  return (
-    <View style={{ flex: 1, backgroundColor: 'rgb(197, 205, 173)' }}>
+  function renderEmptyLocationList() {
+    return (
+      <SafeAreaView>
+        <Header
+          date=""
+          city=""
+          handleAddPlaceClick={() => handleAddPlaceClick()}
+        />
+        <EmptyBody>
+          <Animation
+            autoPlay
+            loop
+            source={EmptyAnimation}
+          />
+          <EmptyTitle>Nenhum local cadastrado !</EmptyTitle>
+        </EmptyBody>
+      </SafeAreaView>
+    );
+  }
+
+  function renderWeatherContent() {
+    return (
       <SafeAreaView>
         <Body>
-          <BackgroundVideo ref={video} source={RomeVideo} resizeMode="stretch" isLooping />
-          <Header
-            city="New York"
-            date="Today, Oct 31 12:24"
-            handleAddPlaceClick={handleAddPlaceClick}
-          />
-          <Temperature
-            temperature={temperature}
-            temperatureDescription="Sunny and warm"
-            temperatureUnit="º"
-          />
+          <BackgroundVideo ref={video} source={RomeVideo} resizeMode="stretch" isLooping onLoad={() => video.current?.playAsync()} />
+          <Swiper
+            activeDotColor="#000"
+            showsPagination
+            containerStyle={{ marginBottom: 0, paddingBottom: 0 }}
+            onIndexChanged={index => dispatch(chooseLocationActions.chooseLocation(location[index]))}
+          >
+            {stepList.map((step) => step)}
+          </Swiper>
         </Body>
+        <Footer />
       </SafeAreaView>
-      <Footer>
-        <FooterTitle>
-          Weather
-          {' '}
-          {index === 0 ? 'now' : 'in the next 5 days' }
-        </FooterTitle>
-        <WeatherTab
-          navigationState={{ index, routes }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{ width: layout.width }}
-          style={{
-            backgroundColor: '#fff',
-            marginBottom: 60,
-            color: 'black',
-          }}
-          sceneContainerStyle={{
-            backgroundColor: '#fff',
-            color: 'black',
-          }}
-          tabBarPosition="bottom"
-          renderTabBar={renderTabBar}
-        />
-      </Footer>
+    );
+  }
+
+  return (
+    <View style={{ flex: 1, backgroundColor: 'rgb(197, 205, 173)' }}>
+      {location.length > 0 ? renderWeatherContent() : renderEmptyLocationList()}
     </View>
   );
 }

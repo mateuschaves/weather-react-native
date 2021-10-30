@@ -31,7 +31,7 @@ export default function Temperature({
         <Value
           animateToNumber={temperature}
           fontStyle={{
-            fontSize: 90,
+            fontSize: 80,
             fontWeight: '500',
           }}
           animationDuration={600}

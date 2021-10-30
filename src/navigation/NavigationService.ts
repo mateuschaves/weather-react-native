@@ -9,7 +9,7 @@ export function navigate(name: never, params: never) {
 }
 
 export function goBack() {
-  if (navigationRef.isReady()) {
+  if (navigationRef.isReady() && navigationRef.canGoBack()) {
     navigationRef.goBack();
   }
 }

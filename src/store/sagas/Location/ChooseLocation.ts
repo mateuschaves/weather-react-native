@@ -6,6 +6,7 @@ import * as NavigationService from '~/navigation/NavigationService';
 import { AnyAction } from 'redux';
 
 import { chooseLocationActions, chooseLocationTypes } from '~/store/ducks/Location/ChooseLocation';
+import { getCurrentWeatherActions } from '../../ducks/Weather/GetCurrentWeather';
 
 interface chooseLocationSagaProps extends AnyAction {
     payload: Location | null;
@@ -14,6 +15,10 @@ interface chooseLocationSagaProps extends AnyAction {
 export function* ChooseLocationSaga({ payload }: chooseLocationSagaProps) {
   try {
     yield put(chooseLocationActions.chooseLocationSuccess(payload));
+
+    const { lat, lng } = payload?.geometry?.location;
+
+    yield put(getCurrentWeatherActions.getCurrentWeather({ latitude: lat, longitude: lng }));
     NavigationService.goBack();
   } catch (error: any) {
     yield put(chooseLocationActions.chooseLocationError(error));
