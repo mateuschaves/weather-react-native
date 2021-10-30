@@ -9,7 +9,7 @@ import rootSaga from './sagas';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['setLocation'],
+  whitelist: ['locations'],
 };
 
 const middlewares = [];

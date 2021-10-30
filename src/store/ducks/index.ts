@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { setLocationReducer as setLocation } from './Location/SetLocation';
+import { newLocationReducer as locations } from './Location/NewLocation';
 
 const reducers = combineReducers({
-  setLocation,
+  locations,
 });
 
 export default reducers;

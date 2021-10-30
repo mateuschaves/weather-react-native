@@ -3,7 +3,7 @@ import { View } from 'react-native';
 
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useDispatch } from 'react-redux';
-import { setLocationActions } from '../../store/ducks/Location/SetLocation';
+import { newLocationActions } from '../../store/ducks/Location/NewLocation';
 
 export default function Places() {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ export default function Places() {
         placeholder="Enter Location"
         minLength={2}
         fetchDetails
-        onPress={(_, a) => dispatch(setLocationActions.setLocation(a))}
+        onPress={(_, a) => dispatch(newLocationActions.newLocation(a))}
         query={{
           key: 'AIzaSyDBAgxzPFtCQFyZqZeOYbaNIR1fgWx9XyE',
         }}

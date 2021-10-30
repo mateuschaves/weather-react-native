@@ -1,3 +1,5 @@
+import { GooglePlaceDetail } from 'react-native-google-places-autocomplete';
+
 /* eslint-disable camelcase */
 export interface LocationDto {
   message: string;
@@ -7,14 +9,4 @@ export interface LocationResponseItem {
 
 }
 
-export interface Location {
-  address_components: [
-    formatted_address: string,
-    geometry: {
-      location: {
-        lat: number;
-        lng: number;
-      }
-    }
-  ]
-}
+export interface Location extends GooglePlaceDetail{}
