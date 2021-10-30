@@ -1,25 +1,25 @@
 import React from 'react';
-import { View } from 'react-native';
 
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { useDispatch } from 'react-redux';
 import { newLocationActions } from '../../store/ducks/Location/NewLocation';
 
+import { constants } from '~/config';
+
+import { Container } from './styles';
+
 export default function Places() {
   const dispatch = useDispatch();
 
   return (
-    <View style={{
-      flex: 1, padding: 16, paddingTop: 100, backgroundColor: '#fff',
-    }}
-    >
+    <Container>
       <GooglePlacesAutocomplete
-        placeholder="Enter Location"
+        placeholder="Escolha uma localização"
         minLength={2}
         fetchDetails
         onPress={(_, a) => dispatch(newLocationActions.newLocation(a))}
         query={{
-          key: 'AIzaSyDBAgxzPFtCQFyZqZeOYbaNIR1fgWx9XyE',
+          key: constants.GOOGLE_PLACES_API_KEY,
         }}
         textInputProps={{
           autoFocus: true,
@@ -38,6 +38,6 @@ export default function Places() {
         }}
       />
 
-    </View>
+    </Container>
   );
 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  SafeAreaView, View,
-} from 'react-native';
+import { SafeAreaView } from 'react-native';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Video } from 'expo-av';
 
@@ -16,44 +14,45 @@ import WeatherCondition from '~/components/WeatherCondition';
 import Footer from '~/components/Footer';
 
 import EmptyAnimation from '~/assets/animations/empty.json';
-import RomeVideo from '~/assets/videos/newyork.mp4';
+import ChurchVideo from '~/assets/videos/church.mp4';
 
 import * as NavigationService from '~/navigation/NavigationService';
 
 import {
-  BackgroundVideo,
-  Body,
-  EmptyBody,
-  Animation,
-  EmptyTitle,
+  BackgroundVideo, Body, EmptyBody, Animation, EmptyTitle, Container, Button, ButtonTitle
 } from './styles';
 import Header from '~/components/Header';
 import { chooseLocationActions } from '../../store/ducks/Location/ChooseLocation';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Home() {
   const video = useRef<Video>(null);
 
-  const [temperature, setTemperature] = useState(0);
+  const [temperature] = useState(0);
   const [stepList, setStepList] = useState<React.ReactNode>([]);
-  const { location, loading } = useSelector<RootState, InitialNewLocationStateProps>((state) => state.locations);
+  const { location } = useSelector<RootState, InitialNewLocationStateProps>(
+    (state) => state.locations,
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
     video.current?.playAsync();
-    setTimeout(() => setTemperature(21), 300);
   }, []);
 
   useEffect(() => {
-    setStepList(location.map(() => (
-      <WeatherCondition
-        city="New York"
-        date="Today, Oct 31 12:23"
-        temperature={temperature}
-        temperatureDescription="Sunny and warm"
-        temperatureUnit="º"
-        handleAddPlaceClick={handleAddPlaceClick}
-      />
-    )));
+    setStepList(
+      location.map((item) => (
+        <WeatherCondition
+          key={item.id}
+          city=""
+          date=""
+          temperature={temperature}
+          temperatureDescription=""
+          temperatureUnit="º"
+          handleAddPlaceClick={handleAddPlaceClick}
+        />
+      )),
+    );
   }, [location.length]);
 
   function handleAddPlaceClick() {
@@ -63,18 +62,13 @@ export default function Home() {
   function renderEmptyLocationList() {
     return (
       <SafeAreaView>
-        <Header
-          date=""
-          city=""
-          handleAddPlaceClick={() => handleAddPlaceClick()}
-        />
+        <Header date="" city="" handleAddPlaceClick={() => handleAddPlaceClick()} />
         <EmptyBody>
-          <Animation
-            autoPlay
-            loop
-            source={EmptyAnimation}
-          />
+          <Animation autoPlay loop source={EmptyAnimation} />
           <EmptyTitle>Nenhum local cadastrado !</EmptyTitle>
+          <Button onPress={() => handleAddPlaceClick()}>
+            <ButtonTitle>Adicionar</ButtonTitle>
+          </Button>
         </EmptyBody>
       </SafeAreaView>
     );
@@ -82,26 +76,46 @@ export default function Home() {
 
   function renderWeatherContent() {
     return (
-      <SafeAreaView>
-        <Body>
-          <BackgroundVideo ref={video} source={RomeVideo} resizeMode="stretch" isLooping onLoad={() => video.current?.playAsync()} />
-          <Swiper
-            activeDotColor="#000"
-            showsPagination
-            containerStyle={{ marginBottom: 0, paddingBottom: 0 }}
-            onIndexChanged={index => dispatch(chooseLocationActions.chooseLocation(location[index]))}
-          >
-            {stepList.map((step) => step)}
-          </Swiper>
-        </Body>
+      <>
+        <SafeAreaView>
+          <Body>
+            <BackgroundVideo ref={video} source={ChurchVideo} resizeMode="stretch" isLooping />
+            <Swiper
+              activeDotColor="#000"
+              onIndexChanged={(index) => dispatch(chooseLocationActions.chooseLocation(location[index]))}
+              pagingEnabled
+              automaticallyAdjustContentInsets
+              bounces
+              showsPagination={false}
+              showsButtons
+              buttonWrapperStyle={{
+                marginTop: 120,
+              }}
+              nextButton={<Ionicons name="chevron-forward-outline" size={30} />}
+              prevButton={<Ionicons name="chevron-back-outline" size={30} />}
+            >
+              {stepList?.map((step, index) => (
+                <WeatherCondition
+                  key={index}
+                  city=""
+                  date=""
+                  temperature={temperature}
+                  temperatureDescription=""
+                  temperatureUnit="º"
+                  handleAddPlaceClick={() => handleAddPlaceClick()}
+                />
+              ))}
+            </Swiper>
+          </Body>
+        </SafeAreaView>
         <Footer />
-      </SafeAreaView>
+      </>
     );
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'rgb(197, 205, 173)' }}>
+    <Container>
       {location.length > 0 ? renderWeatherContent() : renderEmptyLocationList()}
-    </View>
+    </Container>
   );
 }

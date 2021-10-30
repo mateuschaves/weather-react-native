@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Ionicons } from '@expo/vector-icons';
 import {
   TemperatureInfo,
   TemperatureDescriptionContainer,
@@ -8,23 +7,26 @@ import {
   TemperatureContainer,
   TemperatureUnit,
   Value,
+  WeatherIcon,
 } from './styles';
 
 interface TemperatureProps {
     temperatureDescription: string;
     temperature: number;
     temperatureUnit: string;
+    iconUri: string;
 }
 
 export default function Temperature({
   temperatureDescription,
   temperature,
   temperatureUnit,
+  iconUri,
 }: TemperatureProps) {
   return (
     <TemperatureInfo>
       <TemperatureDescriptionContainer>
-        <Ionicons name="cloudy-night-outline" size={40} />
+        <WeatherIcon resizeMode="cover" source={{ uri: iconUri }} />
         <TemperatureDescription>{temperatureDescription}</TemperatureDescription>
       </TemperatureDescriptionContainer>
       <TemperatureContainer>

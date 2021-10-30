@@ -32,3 +32,8 @@ export const TemperatureDescriptionContainer = styled.View`
 export const TemperatureContainer = styled.View`
     flex-direction: row;
 `;
+
+export const WeatherIcon = styled.Image`
+    width: 70px;
+    height: 50px;
+`;

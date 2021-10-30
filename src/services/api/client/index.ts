@@ -13,7 +13,7 @@ const client = async (options: AxiosRequestConfig, handlerError = true) => {
 
   options.params = {
     ...options.params,
-    appid: '74e5e437ba09cbf2d96c21a8dcd21f0b',
+    appid: constants.OPEN_WEATHER_API_APP_ID,
   };
 
   try {

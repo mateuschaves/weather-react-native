@@ -1,7 +1,11 @@
 import styled from 'styled-components/native';
+import { Platform } from 'react-native';
+import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TabView } from 'react-native-tab-view';
+
+const paddingBottom = Platform.OS === 'ios' ? (initialWindowMetrics?.insets?.bottom || 0) + 20 : 0;
 
 export const WeatherSummary = styled.View`
     flex-direction: row;
@@ -9,7 +13,6 @@ export const WeatherSummary = styled.View`
     justify-content: space-evenly;
     align-items: center;
     margin-left: 30px;
-
 `;
 
 export const Container = styled.View`
@@ -17,6 +20,7 @@ export const Container = styled.View`
     border-radius: 16px;
     padding-top: 16px;
     height: 35%;
+    padding-bottom: ${paddingBottom}px;
 `;
 
 export const FooterTitle = styled.Text`

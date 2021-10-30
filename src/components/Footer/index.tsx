@@ -9,12 +9,15 @@ import { getForecastWeatherActions } from '../../store/ducks/Weather/GetForecast
 import { InitialGetCurrentWeatherStateProps, RootState } from '~/@types/store/app.state';
 import { InitialForecastWeatherStateProps } from '../../@types/store/app.state';
 
+import { capitalizeFirstLetter, formatTemperature } from '~/utils/stringFormatUtil';
+
 import WeatherForecastItem from '../WeatherForecastItem';
 import WeatherSummaryItem from '../WeatherSummaryItem';
 
 import {
   Container, FooterTitle, WeatherTab, WeatherSummary,
 } from './styles';
+import { getDayLabel } from '~/utils/dateFormatUtil';
 
 export default function Footer() {
   const layout = useWindowDimensions();
@@ -76,14 +79,14 @@ export default function Footer() {
 
   const WeatherForecastComponent = () => (
     <ScrollView>
-      {forecastWeather.forecastWeather?.daily.map((day) => (
+      {forecastWeather.forecastWeather?.daily.slice(0, 6).map((day, index) => (
         <WeatherForecastItem
           key={day.dt}
-          day="Sat"
+          day={getDayLabel(index)}
           iconUri={`http://openweathermap.org/img/wn/${_.get(day, 'weather[0].icon', '01')}@2x.png`}
-          conditionTitle={String(_.get(day, 'weather[0].description'))}
-          max={`${parseInt(_.get(day, 'temp.max', 0), 10)} º`}
-          min={`${parseInt(_.get(day, 'temp.min', 0), 10)} º`}
+          conditionTitle={capitalizeFirstLetter(_.get(day, 'weather[0].description'))}
+          max={formatTemperature(_.get(day, 'temp.max', 0))}
+          min={formatTemperature(_.get(day, 'temp.min', 0))}
         />
       ))}
     </ScrollView>
@@ -109,7 +112,7 @@ export default function Footer() {
     <Container>
       <FooterTitle>
         Tempo
-        {index === 0 ? ' agora' : ' nos próximos 8 dias'}
+        {index === 0 ? ' agora' : ' nos próximos 7 dias'}
       </FooterTitle>
       <WeatherTab
         navigationState={{ index, routes }}

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "weather-app",
+    "name": "Weather app",
     "slug": "weather-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }

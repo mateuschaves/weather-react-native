@@ -7,6 +7,7 @@ import { AnyAction } from 'redux';
 
 import { chooseLocationActions, chooseLocationTypes } from '~/store/ducks/Location/ChooseLocation';
 import { getCurrentWeatherActions } from '../../ducks/Weather/GetCurrentWeather';
+import { getForecastWeatherActions } from '../../ducks/Weather/GetForecastWeather';
 
 interface chooseLocationSagaProps extends AnyAction {
     payload: Location | null;
@@ -19,6 +20,7 @@ export function* ChooseLocationSaga({ payload }: chooseLocationSagaProps) {
     const { lat, lng } = payload?.geometry?.location;
 
     yield put(getCurrentWeatherActions.getCurrentWeather({ latitude: lat, longitude: lng }));
+    yield put(getForecastWeatherActions.getForecastWeather({ latitude: lat, longitude: lng, exclude: 'hourly,minutely' }));
     NavigationService.goBack();
   } catch (error: any) {
     yield put(chooseLocationActions.chooseLocationError(error));
