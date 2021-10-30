@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
     "axios": "^0.24.0",
     "expo": "~43.0.0",
     "expo-av": "~10.1.2",
@@ -21,6 +23,8 @@
     "react-native-animated-numbers": "^0.2.0",
     "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-pager-view": "5.4.6",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "~3.8.0",
     "react-native-tab-view": "^3.1.1",
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.6",

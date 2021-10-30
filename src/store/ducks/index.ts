@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { sayHiReducer as sayHi } from './Greeting/SayHi';
+import { setLocationReducer as setLocation } from './Location/SetLocation';
 
-const createRootReducers = () => combineReducers({
-  sayHi,
+const reducers = combineReducers({
+  setLocation,
 });
 
-export default createRootReducers;
+export default reducers;

@@ -1,8 +1,8 @@
 import client from '../client';
-import { GreetingDto } from '~/@types/dto/greeting';
+import { LocationDto } from '~/@types/dto/location';
 
-const sayHi = (greetingDto: GreetingDto) => client({
-    url: 'say-hi',
+const sayHi = (greetingDto: LocationDto) => client({
+  url: 'say-hi',
     method: 'POST',
     data: greetingDto,
   });

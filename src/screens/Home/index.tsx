@@ -7,7 +7,8 @@ import { TabBar, SceneMap } from 'react-native-tab-view';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
-import { sayHiActions } from '~/store/ducks/Greeting/SayHi';
+
+import * as NavigationService from '~/navigation/NavigationService';
 
 import RomeVideo from '~/assets/videos/newyork.mp4';
 import {
@@ -252,10 +253,13 @@ export default function Home() {
   ]);
 
   useEffect(() => {
-    dispatch(sayHiActions.sayHi({ message: 'oi' }));
     video.current?.playAsync();
     setTimeout(() => setTemperature(21), 300);
   }, []);
+
+  function handleAddPlaceClick() {
+    NavigationService.navigate('Place', null);
+  }
 
   return (
     <View style={{ flex: 1, backgroundColor: 'rgb(197, 205, 173)' }}>
@@ -268,7 +272,7 @@ export default function Home() {
               <Date>Today, Aug 29 02:35</Date>
             </CityInfoContainer>
 
-            <Ionicons name="add" size={40} />
+            <Ionicons name="add" size={40} onPress={handleAddPlaceClick}/>
           </Header>
           <TemperatureInfo>
             <TemperatureDescriptionContainer>
