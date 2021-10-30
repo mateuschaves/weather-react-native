@@ -6,6 +6,7 @@ import * as NavigationService from '~/navigation/NavigationService';
 import { AnyAction } from 'redux';
 
 import { newLocationActions, newLocationTypes } from '~/store/ducks/Location/NewLocation';
+import { chooseLocationActions } from '../../ducks/Location/ChooseLocation';
 
 interface setLocationSagaProps extends AnyAction {
     payload: Location | null;
@@ -14,6 +15,7 @@ interface setLocationSagaProps extends AnyAction {
 export function* NewLocationSaga({ payload }: setLocationSagaProps) {
   try {
     yield put(newLocationActions.newLocationSuccess(payload));
+    yield put(chooseLocationActions.chooseLocation(payload));
     NavigationService.goBack();
   } catch (error: any) {
     yield put(newLocationActions.newLocationSuccess(error));

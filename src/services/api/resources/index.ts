@@ -1,3 +1,3 @@
-import GreetingService from './GreetingService';
+import WeatherService from './WeatherService';
 
-export { GreetingService };
+export { WeatherService };

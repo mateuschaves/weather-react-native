@@ -11,6 +11,11 @@ const client = async (options: AxiosRequestConfig, handlerError = true) => {
 
   const onError = (error: AxiosError) => errorHandler(error, handlerError);
 
+  options.params = {
+    ...options.params,
+    appid: '74e5e437ba09cbf2d96c21a8dcd21f0b',
+  };
+
   try {
     const response = await instance(options);
     return onSuccess(response);
