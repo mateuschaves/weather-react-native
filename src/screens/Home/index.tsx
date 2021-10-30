@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView, View, useWindowDimensions, ScrollView,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
 import { TabBar, SceneMap } from 'react-native-tab-view';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Ionicons } from '@expo/vector-icons';
 import { Video } from 'expo-av';
+
+import Header from '~/components/Header';
+import Temperature from '~/components/Temperature';
 
 import * as NavigationService from '~/navigation/NavigationService';
 
@@ -14,16 +16,6 @@ import RomeVideo from '~/assets/videos/newyork.mp4';
 import {
   WeatherSummary,
   BackgroundVideo,
-  Temperature,
-  TemperatureInfo,
-  TemperatureDescription,
-  TemperatureDescriptionContainer,
-  Header,
-  CityInfoContainer,
-  City,
-  Date,
-  TemperatureUnit,
-  TemperatureContainer,
   Body,
   Footer,
   FooterTitle,
@@ -240,7 +232,6 @@ const renderScene = SceneMap({
 });
 
 export default function Home() {
-  const dispatch = useDispatch();
   const layout = useWindowDimensions();
 
   const video = React.useRef<Video>(null);
@@ -266,31 +257,16 @@ export default function Home() {
       <SafeAreaView>
         <Body>
           <BackgroundVideo ref={video} source={RomeVideo} resizeMode="stretch" isLooping />
-          <Header>
-            <CityInfoContainer>
-              <City>New York</City>
-              <Date>Today, Aug 29 02:35</Date>
-            </CityInfoContainer>
-
-            <Ionicons name="add" size={40} onPress={handleAddPlaceClick}/>
-          </Header>
-          <TemperatureInfo>
-            <TemperatureDescriptionContainer>
-              <Ionicons name="cloudy-night-outline" size={40} />
-              <TemperatureDescription>Sunny and warm</TemperatureDescription>
-            </TemperatureDescriptionContainer>
-            <TemperatureContainer>
-              <Temperature
-                animateToNumber={temperature}
-                fontStyle={{
-                  fontSize: 90,
-                  fontWeight: '500',
-                }}
-                animationDuration={600}
-              />
-              <TemperatureUnit>º</TemperatureUnit>
-            </TemperatureContainer>
-          </TemperatureInfo>
+          <Header
+            city="New York"
+            date="Today, Oct 31 12:24"
+            handleAddPlaceClick={handleAddPlaceClick}
+          />
+          <Temperature
+            temperature={temperature}
+            temperatureDescription="Sunny and warm"
+            temperatureUnit="º"
+          />
         </Body>
       </SafeAreaView>
       <Footer>
