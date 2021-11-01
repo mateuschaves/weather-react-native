@@ -120,6 +120,7 @@ export default function Footer() {
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
         style={{
+          height: '100%',
           backgroundColor: '#fff',
           color: 'black',
         }}

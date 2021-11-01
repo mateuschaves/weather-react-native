@@ -1,14 +1,15 @@
 import styled from 'styled-components/native';
 import AnimatedNumbers from 'react-native-animated-numbers';
+import colors from '~/theme/colors';
 
 export const Value = styled(AnimatedNumbers)`
-    color: #000;
+    color: ${colors.black};
     font-size: 90px;
     font-weight: 600;
 `;
 
 export const TemperatureUnit = styled.Text`
-    color: #000;
+    color: ${colors.black};
     font-size: 90px;
     font-weight: 600;
     margin: 0;

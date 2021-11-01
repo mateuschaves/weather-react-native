@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import colors from '~/theme/colors';
 
 export const Container = styled.View`
     flex-direction: row;
@@ -10,7 +11,7 @@ export const Container = styled.View`
 
 export const WeatherLabel = styled.Text`
     font-weight: 600;
-    color: rgb(191, 191, 191);
+    color: ${colors.labelColor};
     margin-bottom: 4px;
 `;
 
@@ -23,7 +24,7 @@ export const WeatherContainer = styled.View``;
 export const WeatherIconContainer = styled.View`
     justify-content: center;
     align-items: center;
-    background-color: rgb(230, 230, 230);
+    background-color: ${colors.bacgkroundLightColor};
     border-radius: 90px;
     width: 45px;
     height: 45px;

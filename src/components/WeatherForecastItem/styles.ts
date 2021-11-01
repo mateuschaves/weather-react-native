@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import colors from '~/theme/colors';
 
 export const WeatherMaxAndMin = styled.View`
     flex: 1;
@@ -11,7 +12,7 @@ export const WeatherContainerItem = styled.View`
     flex-direction: row;
     padding: 0 16px 0 16px;
     align-items: center;
-    background-color: rgb(230, 230, 230);
+    background-color: ${colors.bacgkroundLightColor};
     border-radius: 8px;
     margin-top: 8px;
 `;

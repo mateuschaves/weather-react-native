@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.wazowsky.weather-app"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +29,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "",
+    "githubUrl": "https://github.com/mateuschaves/weather-app"
   }
 }

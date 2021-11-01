@@ -4,8 +4,9 @@ import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { TabView } from 'react-native-tab-view';
+import colors from '~/theme/colors';
 
-const paddingBottom = Platform.OS === 'ios' ? (initialWindowMetrics?.insets?.bottom || 0) + 20 : 0;
+const paddingBottom = Platform.OS === 'ios' ? (initialWindowMetrics?.insets?.bottom || 0) + 10 : 0;
 
 export const WeatherSummary = styled.View`
     flex-direction: row;
@@ -16,7 +17,7 @@ export const WeatherSummary = styled.View`
 `;
 
 export const Container = styled.View`
-    background-color: #fff;
+    background-color: ${colors.white};
     border-radius: 16px;
     padding-top: 16px;
     height: 35%;
@@ -33,5 +34,5 @@ export const FooterTitle = styled.Text`
 `;
 
 export const WeatherTab = styled(TabView)`
-    background-color: #fff;
+    background-color: ${colors.white};
 `;

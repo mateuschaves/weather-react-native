@@ -1,9 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
+import { AnyAction } from 'redux';
 import { Location } from '~/@types/dto/location';
 
 import * as NavigationService from '~/navigation/NavigationService';
-
-import { AnyAction } from 'redux';
 
 import { newLocationActions, newLocationTypes } from '~/store/ducks/Location/NewLocation';
 import { chooseLocationActions } from '../../ducks/Location/ChooseLocation';

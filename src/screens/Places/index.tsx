@@ -20,6 +20,7 @@ export default function Places() {
         onPress={(_, a) => dispatch(newLocationActions.newLocation(a))}
         query={{
           key: constants.GOOGLE_PLACES_API_KEY,
+          language: 'pt-BR',
         }}
         textInputProps={{
           autoFocus: true,
