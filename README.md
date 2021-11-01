@@ -1,7 +1,7 @@
 # Weather App
 
 <p align="center">
-  <img src="doc/demo.gif" alt="App demonstration">
+  <img src="https://i.im.ge/2021/11/01/owjDBp.gif" alt="App demonstration">
 </p>
 
 >🚀 🌧  Weather app in react native using typescript.
